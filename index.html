@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop Dues Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>💰 Shop Dues Tracker</h1>
+            <p>Keep track of all your shop payments</p>
+        </div>
+
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="switchTab('dues')">Outstanding Dues</button>
+            <button class="nav-tab" onclick="switchTab('history')">Payment History</button>
+        </div>
+
+        <!-- Outstanding Dues Tab -->
+        <div id="duesTab" class="tab-content active">
+            <div class="shop-selector">
+                <div class="shop-tabs" id="shopTabs">
+                    <!-- Shop tabs will be dynamically added here -->
+                </div>
+                <button class="add-shop-btn" onclick="showAddShopModal()">+ Add Shop</button>
+            </div>
+
+            <div class="form-section">
+                <h3>Add New Due</h3>
+                <div class="form-group">
+                    <div>
+                        <label for="dueDate">Date:</label>
+                        <input type="date" id="dueDate" required>
+                    </div>
+                    <div>
+                        <label for="dueAmount">Amount:</label>
+                        <input type="number" id="dueAmount" placeholder="Enter amount" step="0.01" required>
+                    </div>
+                    <button class="add-btn" onclick="addTransaction()">Add Due</button>
+                </div>
+                <div class="form-group">
+                    <div style="flex: 1;">
+                        <label for="dueNote">Note (optional):</label>
+                        <textarea id="dueNote" placeholder="Add a note about this due..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="transactions-section">
+                <div class="section-header">
+                    <h3>Outstanding Dues</h3>
+                    <div class="total-due" id="totalDue">Total: $0.00</div>
+                </div>
+                <div id="transactionsList">
+                    <!-- Transactions will be dynamically added here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Payment History Tab -->
+        <div id="historyTab" class="tab-content">
+            <div class="shop-selector">
+                <div class="shop-tabs" id="historyShopTabs">
+                    <!-- Shop tabs will be dynamically added here -->
+                </div>
+            </div>
+
+            <div class="sort-controls">
+                <span style="color: #495057; font-weight: 500;">Sort by:</span>
+                <button class="sort-btn active" onclick="setSortMode('date-desc')">Date (Newest)</button>
+                <button class="sort-btn" onclick="setSortMode('date-asc')">Date (Oldest)</button>
+                <button class="sort-btn" onclick="setSortMode('amount-desc')">Amount (High-Low)</button>
+                <button class="sort-btn" onclick="setSortMode('amount-asc')">Amount (Low-High)</button>
+                <button class="export-btn" onclick="exportData()">📊 Export</button>
+            </div>
+
+            <div class="transactions-section">
+                <div class="section-header">
+                    <h3>Payment History</h3>
+                    <div class="total-due" id="historyTotal">Total Paid: $0.00</div>
+                </div>
+                <div id="historyList">
+                    <!-- History will be dynamically added here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Shop Modal -->
+    <div class="modal" id="addShopModal">
+        <div class="modal-content">
+            <h3>Add New Shop</h3>
+            <input type="text" id="shopNameInput" placeholder="Enter shop name" maxlength="20">
+            <div class="modal-buttons">
+                <button class="modal-btn confirm" onclick="addShop()">Add</button>
+                <button class="modal-btn cancel" onclick="hideAddShopModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirm Delete Modal -->
+    <div class="modal" id="confirmModal">
+        <div class="modal-content">
+            <h3 id="confirmTitle">Confirm Action</h3>
+            <p id="confirmMessage">Are you sure?</p>
+            <div class="modal-buttons">
+                <button class="modal-btn confirm" id="confirmBtn">Confirm</button>
+                <button class="modal-btn cancel" onclick="hideConfirmModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
